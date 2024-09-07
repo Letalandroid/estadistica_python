@@ -1,7 +1,7 @@
 print('\n[!] Realizando calculos, esto podria demorar un poco...')
 
 import pandas as pd
-from change_format import f_edad, f_gen, f_ciclo, f_n_socioeco, f_estado, f_resp, f_calif, f_h_estudio, f_extras, f_academico, f_chamba, f_trabjadas, f_empleo, f_carrera, f_flexible, f_desplazamiento, f_rendimiento
+from change_format import f_edad, f_gen, f_ciclo, f_n_socioeco, f_estado, f_resp, f_calif, f_h_estudio, f_extras, f_academico, f_chamba, f_trabjadas, f_empleo, f_carrera, f_flexible, f_desplazamiento, f_rendimiento, f_facultad, f_estres, f_t_estudio
 import calc
 
 archivo = "RESPUESTAS.xlsx"
@@ -84,9 +84,29 @@ t_rendimiento = df['¿Consideras que trabajar afecta tu rendimiento académico?'
 # 3: Sí, de manera positiva
 calc.calcular(t_rendimiento, 'Rendimiento academico')
 
-c_estudio = df['En una escala del 1 al 5, ¿cuánto estrés sientes al combinar trabajo y estudio?']
-t_conocimientos = df['¿Consideras que el trabajo te ayuda a aplicar los conocimientos adquiridos en tus estudios?']
+c_estudio = df['En una escala del 1 al 5, ¿cuánto estrés sientes al combinar trabajo y estudio?'].apply(f_estres.format_estres)
+calc.calcular(c_estudio, 'Combinar trabajo + estudio')
+
+t_conocimientos = df['¿Consideras que el trabajo te ayuda a aplicar los conocimientos adquiridos en tus estudios?'].apply(f_t_estudio.format_t_estudio)
+# 1: No
+# 2: Si
+calc.calcular(t_conocimientos, 'Aplicar trabajo en estudio')
+
+#! [!] Sin terminar
 # e_equilibrar = df['¿Qué estrategias utilizas para equilibrar el trabajo y el estudio? (puedes seleccionar más de una opción)']
-facultad = df['Facultad']
+#! [!] Sin terminar
+
+facultad = df['Facultad'].apply(f_facultad.format_facultad)
+# Economía: 1
+# Ingeniería: 2
+# Ciencias: 3
+# Ciencias de la Salud: 4
+# Derecho: 5
+# Agronomia: 6
+# Educación: 7
+# Ciencias de la comunicación: 8
+# Ciencias Administrativas: 9
+# Contabilidad : 10
+calc.calcular(facultad, 'Facultad')
 
 print('')
