@@ -1,0 +1,65 @@
+import pandas as pd
+from change_format import f_edad, f_gen, f_ciclo, f_n_socioeco, f_estado, f_resp, f_calif, f_h_estudio, f_extras, f_academico, f_chamba
+import calc
+
+archivo = "RESPUESTAS.xlsx"
+df = pd.read_excel(archivo)
+
+edad = df['Edad'].apply(f_edad.format_edad)
+calc.calcular(edad, 'edad')
+
+genero = df['Género'].apply(f_gen.format_gen)
+# Masculino: 0
+# Femenino: 1
+calc.calcular(genero, 'genero')
+
+ciclo = df['Año de estudio'].apply(f_ciclo.format_ciclo)
+calc.calcular(ciclo, 'ciclo')
+
+n_socioeco = df['Nivel socioeconómico (según tu percepción)'].apply(f_n_socioeco.format_socioeco)
+# 0: Bajo
+# 1: Medio
+# 2: Alto
+calc.calcular(n_socioeco, 'Nivel socioeconomico')
+
+e_civil = df['Estado civil'].apply(f_estado.format_estado)
+calc.calcular(e_civil, 'Estado Civil')
+
+responsabilidades = df['¿Tienes responsabilidades familiares (ej. cuidado de hijos, familiares mayores)?'].apply(f_resp.format_respon)
+# 1: No
+# 2: Si
+calc.calcular(responsabilidades, 'Responsabilidades')
+
+p_calificaciones = df['Promedio general de calificaciones'].apply(f_calif.format_calif)
+calc.calcular(p_calificaciones, 'Calificaciones')
+
+h_estudio = df['¿Cuántas horas dedicas al estudio fuera del horario de clases por semana?'].apply(f_h_estudio.format_estudio)
+calc.calcular(h_estudio, 'Horas de estudio')
+
+a_extras = df['¿Participas en actividades extracurriculares (deporte, cultura, etc.)?'].apply(f_extras.format_extras)
+# 1: No
+# 2: Si
+calc.calcular(a_extras, 'Horas extras')
+
+r_academico = df['¿Cómo calificarías tu rendimiento académico actual?'].apply(f_academico.format_academic)
+# 0: Bajo
+# 1: Regular
+# 2: Alto
+calc.calcular(r_academico, 'Rendimiento academico')
+
+chamba = df['¿Trabajas actualmente?'].apply(f_chamba.format_chamba)
+# 1: No
+# 2: Si
+calc.calcular(chamba, '¿Chamba o no chamba?')
+
+h_trabajadas = df['¿Cuántas horas trabajas en promedio por semana?']
+empleo = df['¿Qué tipo de empleo tienes?']
+t_carrera = df['¿El trabajo que realizas está relacionado con tu carrera de estudios?']
+h_flexible = df['¿Tu trabajo actual tiene un horario flexible?']
+h_desplazamiento = df['¿Cuánto tiempo te toma desplazarte hacia tu trabajo (ida y vuelta)?']
+t_rendimiento = df['¿Consideras que trabajar afecta tu rendimiento académico?']
+c_estudio = df['En una escala del 1 al 5, ¿cuánto estrés sientes al combinar trabajo y estudio?']
+t_conocimientos = df['¿Consideras que el trabajo te ayuda a aplicar los conocimientos adquiridos en tus estudios?']
+facultad = df['Facultad']
+
+print('')
